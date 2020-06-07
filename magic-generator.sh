@@ -6,8 +6,11 @@
 # TODO: Shellcheck
 
 choose_a_word() {
-	# TODO: Default to 8
-	grep -hE "^(a|b|c|e|f|l|h|s|g|t|q|o){"$1"}\$" /usr/share/dict/* | shuf | head -n 1
+	WORD_LENGTH=$1
+	if [ -z "$WORD_LENGTH" ]; then
+		WORD_LENGTH=4
+	fi
+	grep -hE "^(a|b|c|e|f|l|h|s|g|t|q|o){$WORD_LENGTH}\$" /usr/share/dict/* | shuf | head -n 1
 }
 
 translate_to_leet_speak() {
