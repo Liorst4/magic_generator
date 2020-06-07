@@ -7,7 +7,7 @@
 
 choose_a_word() {
 	# TODO: Default to 8
-	grep -E "^(a|b|c|e|f|l|h|s|g|t|q|o){"$1"}\$" /usr/share/dict/american-english | shuf | head -n 1 
+	grep -hE "^(a|b|c|e|f|l|h|s|g|t|q|o){"$1"}\$" /usr/share/dict/* | shuf | head -n 1
 }
 
 translate_to_leet_speak() {
