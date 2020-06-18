@@ -4,7 +4,7 @@
 
 choose_a_word() {
 	# TODO: Add cache
-	grep -hE "^(a|b|c|e|f|l|h|s|g|t|q|o){$1}\$" /usr/share/dict/* | shuf | head -n 1
+	grep -hE "^(a|b|c|e|f|l|h|s|g|t|q|o){$1}\$" /usr/share/dict/*english* | shuf | head -n 1
 }
 
 MAXIMUM_WORD_LENGTH=4
