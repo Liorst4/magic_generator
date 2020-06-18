@@ -1,20 +1,29 @@
 #!/bin/sh
 
-# Generates a random leetspeck word
-
-# TODO: If length is larger than 8, concat a number of words
-# TODO: Shellcheck
+# Generates a random leet speak phrase
 
 choose_a_word() {
-	WORD_LENGTH=$1
-	if [ -z "$WORD_LENGTH" ]; then
-		WORD_LENGTH=4
-	fi
-	grep -hE "^(a|b|c|e|f|l|h|s|g|t|q|o){$WORD_LENGTH}\$" /usr/share/dict/* | shuf | head -n 1
+	# TODO: Add cache
+	grep -hE "^(a|b|c|e|f|l|h|s|g|t|q|o){$1}\$" /usr/share/dict/* | shuf | head -n 1
+}
+
+MAXIMUM_WORD_LENGTH=4
+
+choose_a_phrase() {
+	PHRASE_LENGTH=$1
+	COUNTER=0
+	while [ "$COUNTER" -lt "$PHRASE_LENGTH" ]; do
+		REMAINING_LENGTH=$(("$PHRASE_LENGTH" - "$COUNTER"))
+		WORD_LENGTH=$(("$REMAINING_LENGTH" > "$MAXIMUM_WORD_LENGTH" ? "$MAXIMUM_WORD_LENGTH" : "$REMAINING_LENGTH"))
+		PHRASE="$PHRASE$(choose_a_word "$WORD_LENGTH") "
+		COUNTER=$(("$COUNTER" + "$WORD_LENGTH"))
+	done
+	echo "$PHRASE"
+	# TODO Remove last whitespace
 }
 
 translate_to_leet_speak() {
-	echo "$1" | tr lhsgtqo 1456790
+	echo "$1" | tr -d " " | tr lhsgtqo 1456790
 }
 
 print_leet_word() {
@@ -22,4 +31,5 @@ print_leet_word() {
 }
 
 # TODO: Usage string
-print_leet_word "$(choose_a_word "$1")"
+# TODO: Add an option for little or big endian
+print_leet_word "$(choose_a_phrase "$1")"
