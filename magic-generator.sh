@@ -30,6 +30,21 @@ print_leet_word() {
 	printf '%s -> 0x%s\n' "$1" "$(translate_to_leet_speak "$1")"
 }
 
-# TODO: Usage string
-# TODO: Add an option for little or big endian
-print_leet_word "$(choose_a_phrase "$1")"
+usage() {
+	echo "Usage: $0 [-l <NUMBER_OF_DIGITS>]" 1>&2
+	exit 1
+}
+
+NUMBER_OF_DIGITS=8
+while getopts ":l:" o; do
+	case "${o}" in
+		l)
+			export NUMBER_OF_DIGITS="${OPTARG}"
+			;;
+		*)
+			usage
+			;;
+	esac
+done
+
+print_leet_word "$(choose_a_phrase "$NUMBER_OF_DIGITS")"

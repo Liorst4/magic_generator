@@ -4,14 +4,14 @@ Generate unique hexadecimal numbers based on leet speak.
 
 * Usage
 #+BEGIN_SRC bash
-  ./magic_generator.sh $NUMBER_OF_DIGITS
+  ./magic_generator.sh -l $NUMBER_OF_DIGITS
 
   # 16 bit number
-  ./magic_generator.sh 4
+  ./magic_generator.sh -l 4
 
   # 32 bit number
-  ./magic_generator.sh 8
+  ./magic_generator.sh -l 8
 
   # 64 bit number
-  ./magic_generator.sh 16
+  ./magic_generator.sh -l 16
 #+END_SRC
